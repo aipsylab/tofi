@@ -1,4 +1,4 @@
-# SIAL: Statistical Inference After Learning
+# TOFI: Tests on Feature Importance
 
 
 ## Overview
