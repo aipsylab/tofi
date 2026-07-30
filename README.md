@@ -15,7 +15,7 @@ pip install pytofi
 
 ## Tutorial
 
-Three Jupyter notebooks are available to learn the use of `sial`:
+Three Jupyter notebooks are available to learn the use of `tofi`:
 
 1. [Conditional Independence Tests](https://github.com/aipsylab/tofi/blob/main/tutorial/tutorial_1_cit.ipynb)
 2. [Risk Invariance Tests](https://github.com/aipsylab/tofi/blob/main/tutorial/tutorial_2_rit.ipynb)
