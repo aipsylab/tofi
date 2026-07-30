@@ -25,7 +25,7 @@ These notebooks assume that readers have experiences in using `scikit-learn`.
 
 ## References
 
-Huang, P.-H. (2024). Residual Permutation Tests for Feature Importance in Machine Learning. [Manuscript submitted for publication].
+Huang, P.-H. (2024). Residual Permutation Tests for Feature Importance in Machine Learning. Residual permutation tests for feature importance in machine learning. British Journal of Mathematical and Statistical Psychology. Advance online publication. doi: 10.1111/bmsp.70009 
 
 Lei, J., G’Sell, M., Rinaldo, A., Tibshirani, R. J., & Wasserman, L. (2018). Distribution-free predictive inference for regression. Journal of the American Statistical Association, 113(523), 1094–1111. doi: 10.1080/01621459.2017.1307116
 
