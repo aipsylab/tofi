@@ -23,8 +23,8 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          # oldest supported versions
-          - { os: ubuntu-latest, python: "3.9", sklearn: "scikit-learn==1.5.*" }
+          # oldest supported versions (ubuntu-latest no longer ships Python 3.9)
+          - { os: ubuntu-24.04, python: "3.9", sklearn: "scikit-learn==1.5.*" }
           # latest releases
           - { os: ubuntu-latest, python: "3.12", sklearn: "scikit-learn" }
           - { os: ubuntu-latest, python: "3.13", sklearn: "scikit-learn" }
