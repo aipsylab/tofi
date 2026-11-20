@@ -1,26 +1,51 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
 [project]
-
 name = "pytofi"
-
-version = "0.0.1"
-
+dynamic = ["version"]
 authors = [
   { name="Po-Hsien Huang", email="psyphh@nccu.edu.tw" },
 ]
-
 description = "Tests on Feature Importance"
-
 readme = "README.md"
-
+license = { file = "LICENSE" }
+requires-python = ">=3.9"
 dependencies = [
+  "numpy>=1.22",
+  "scipy>=1.8",
   "scikit-learn>=1.5.0",
   "pandas>=2.0.3",
 ]
-
-requires-python = ">=3.9"
-
 classifiers = [
-    "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: MIT License",
-    "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
 ]
+
+[project.optional-dependencies]
+test = ["pytest>=7"]
+docs = ["mkdocs-material>=9", "mkdocstrings[python]>=0.24"]
+
+[project.urls]
+Homepage = "https://github.com/aipsylab/tofi"
+Documentation = "https://aipsylab.github.io/tofi/"
+Paper = "https://doi.org/10.1111/bmsp.70009"
+
+[tool.setuptools]
+packages = ["tofi"]
+
+[tool.setuptools.dynamic]
+version = { attr = "tofi.__version__" }
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py39"
+extend-exclude = ["tutorial"]
+
+[tool.ruff.lint]
+select = ["E", "W", "F", "I", "B", "UP", "C4", "SIM"]
