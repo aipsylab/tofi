@@ -1,17 +1,29 @@
 # TOFI: Tests on Feature Importance
 
+[![tests](https://github.com/aipsylab/tofi/actions/workflows/tests.yml/badge.svg)](https://github.com/aipsylab/tofi/actions/workflows/tests.yml)
+[![PyPI](https://img.shields.io/pypi/v/pytofi)](https://pypi.org/project/pytofi/)
 
 ## Overview
- 
+
 `tofi` is a python package for conducting tests on feature importance in machine learning. It is written on the basis of [`scikit-learn`](https://scikit-learn.org/stable/index.html). Hence, in principle, any regressor/classifier learned by `scikit-learn` can be inferred by `tofi`.
 
-`tofi` provides two types of `Inferer` for making inferences: `CIT` for conditional independence test and `RIT` for risk invariance test. `CIT` can implement the holdout randomization test (HRT; Tansey et al., 2022), residual permutation test (RPT; Huang, 2024), and conditional predictive impact (CPI; Watson & Wright, 2021). On the other hand, `RIT` can conduct leave-one-covariate-out (LOCO; Lei et al., 2018) and plug-in estimation (PIE; Williamson et al., 2023). In addition, `tofi` also constructs a `Crosser` class. With the help of `Crosser`, cross-fitting and $p$-value combination can be easily implemented to improve the stability and even statistical power of the CITs and RITs.
+`tofi` provides two types of `Inferer` for making inferences: `CIT` for conditional independence test and `RIT` for risk invariance test. `CIT` can implement the holdout randomization test (HRT; Tansey et al., 2022), residual permutation test (RPT; Huang, 2025), and conditional predictive impact (CPI; Watson & Wright, 2021). On the other hand, `RIT` can conduct leave-one-covariate-out (LOCO; Lei et al., 2018) and plug-in estimation (PIE; Williamson et al., 2023). In addition, `tofi` also constructs a `Crosser` class. With the help of `Crosser`, cross-fitting and $p$-value combination can be easily implemented to improve the stability and even statistical power of the CITs and RITs.
 
 ## Installation
+
 `tofi` can be installed via `pip`:
 ```
 pip install pytofi
 ```
+
+The development version can be installed from GitHub:
+```
+pip install git+https://github.com/aipsylab/tofi.git
+```
+
+## Avoiding information leakage
+
+When `learner` is a `Crosser`, the `sampler` (CIT) or `competitor` (RIT) should be a `Crosser` with the same `cv`. If an ordinary estimator is passed instead, `tofi` issues a `LeakageWarning`: if that estimator was fitted on the full data, it has seen the test folds and the test is invalid.
 
 ## Tutorial
 
@@ -21,11 +33,27 @@ Three Jupyter notebooks are available to learn the use of `tofi`:
 2. [Risk Invariance Tests](https://github.com/aipsylab/tofi/blob/main/tutorial/tutorial_2_rit.ipynb)
 3. [Cross-Fitting and $p$-Value Combination](https://github.com/aipsylab/tofi/blob/main/tutorial/tutorial_3_crosser.ipynb)
 
-These notebooks assume that readers have experiences in using `scikit-learn`.
+These notebooks assume that readers have experiences in using `scikit-learn`. The API reference is available at <https://aipsylab.github.io/tofi/>.
+
+## Development
+
+```
+pip install -e ".[test]"
+python -m pytest        # unit, statistical and regression tests
+ruff check . && ruff format --check .
+```
+
+The regression tests in `tests/golden` lock the numerical results of 48 scenarios. If a change of results is intended, regenerate them with `python -m tests.golden.generate` and document the change in `CHANGELOG.md`.
+
+## Citation
+
+If you use `tofi`, please cite:
+
+Huang, P.-H. (2025). Residual permutation tests for feature importance in machine learning. *British Journal of Mathematical and Statistical Psychology*. https://doi.org/10.1111/bmsp.70009
 
 ## References
 
-Huang, P.-H. (2024). Residual Permutation Tests for Feature Importance in Machine Learning. Residual permutation tests for feature importance in machine learning. British Journal of Mathematical and Statistical Psychology. Advance online publication. doi: 10.1111/bmsp.70009 
+Huang, P.-H. (2025). Residual permutation tests for feature importance in machine learning. *British Journal of Mathematical and Statistical Psychology*. https://doi.org/10.1111/bmsp.70009
 
 Lei, J., G’Sell, M., Rinaldo, A., Tibshirani, R. J., & Wasserman, L. (2018). Distribution-free predictive inference for regression. Journal of the American Statistical Association, 113(523), 1094–1111. doi: 10.1080/01621459.2017.1307116
 

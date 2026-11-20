@@ -1,0 +1,43 @@
+name: tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install ruff
+      - run: ruff check .
+      - run: ruff format --check .
+
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # oldest supported versions (ubuntu-latest no longer ships Python 3.9)
+          - { os: ubuntu-24.04, python: "3.9", sklearn: "scikit-learn==1.5.*" }
+          # latest releases
+          - { os: ubuntu-latest, python: "3.12", sklearn: "scikit-learn" }
+          - { os: ubuntu-latest, python: "3.13", sklearn: "scikit-learn" }
+          - { os: macos-latest, python: "3.13", sklearn: "scikit-learn" }
+          - { os: windows-latest, python: "3.13", sklearn: "scikit-learn" }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install "${{ matrix.sklearn }}" ".[test]"
+      - name: Test
+        run: python -m pytest -q

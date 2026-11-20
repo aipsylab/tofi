@@ -6,3 +6,9 @@ Pipfile.lock
 
 /dist
 /pytofi_pkg.egg-info
+/build
+*.egg-info
+__pycache__/
+.pytest_cache/
+/site
+.ruff_cache/
